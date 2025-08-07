@@ -1,0 +1,40 @@
+=== Initial Setup and SSH Configuration ===
+sudo apt update && sudo apt upgrade -y
+sudo apt install openssh-server
+sudo systemctl status ssh
+sudo nano /etc/ssh/sshd_config
+sudo systemctl restart ssh
+ssh user@server_ip
+
+=== Basic Server Hardening ===
+sudo adduser secureadmin
+sudo usermod -aG sudo secureadmin
+sudo nano /etc/ssh/sshd_config
+sudo ufw allow OpenSSH
+sudo ufw enable
+sudo apt install fail2ban
+sudo systemctl enable fail2ban
+
+=== Nessus Installation ===
+sudo dpkg -i Nessus-*.deb
+sudo systemctl start nessusd
+sudo systemctl status nessusd
+sudo /opt/nessus/sbin/nessuscli fetch --challenge
+sudo /opt/nessus/sbin/nessuscli fetch --register <activation_code>
+https://localhost:8834
+
+===  Vulnerability Scanning and Fixes ===
+sudo apt install apache2
+sudo systemctl status apache2
+sudo apt remove apache2
+sudo apt purge apache2*
+sudo apt autoremove
+
+=== Additional Useful Commands ===
+whoami
+hostname -I
+ip a
+lsb_release -a
+df -h
+top
+htop
